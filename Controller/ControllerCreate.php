@@ -1,6 +1,11 @@
 <?php
-class ControllerCreate{
+class ControllerCreate implements ControllerInterface {
     public function render(){
+        $manager = new DatabaseManager();
+        $teachers = $manager->getTeachers();
+        $classes = $manager->getClasses();
+        $students = $manager->getStudents();
+
 
         if(isset($_POST['createTeacher'])){
             $manager->createTeacher(htmlspecialchars($_POST['teacherName']),htmlspecialchars($_POST['teacherEmail']));

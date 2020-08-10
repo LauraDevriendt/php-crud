@@ -1,5 +1,7 @@
 <?php
 class TeacherException extends Exception{}
+class ClassException extends Exception{}
+class StudentException extends Exception{}
 
 class DatabaseManager
 {
@@ -108,6 +110,14 @@ class DatabaseManager
 
 
     }
+
+    public function editTeacher(int $id, string $name, string $email){
+        $q = $this->getDbcontroller()->prepare('UPDATE teacher SET name = :name, email = :email WHERE teacher_id = :id');
+        $q->bindValue('id', $id);
+        $q->bindValue('name', $name);
+        $q->bindValue('email', $email);
+        $q->execute();
+    }
     public function createClass(string $name, string $campus, int $teacherId)
     {
 
@@ -140,6 +150,24 @@ class DatabaseManager
         }
     }
 
+    public function loadClass(int $id):ClassBecode{
+
+        $q = $this->getDbcontroller()->prepare('select * from class where class_id = :id');
+        $q->bindValue(':id', $id);
+        $q->execute();
+        $row = $q->fetch();
+        return new ClassBecode($row['class_id'], $row['name'], $row['campus'],$row['teacher_id']);
+
+
+    }
+    public function editClass(int $id, string $name, string $campus, int $teacherId){
+        $q = $this->getDbcontroller()->prepare('UPDATE class SET name = :name, campus = :campus, teacher_id=:teacher_id WHERE class_id = :id');
+        $q->bindValue('id', $id);
+        $q->bindValue('name', $name);
+        $q->bindValue('campus', $campus);
+        $q->bindValue('teacher_id', $teacherId);
+        $q->execute();
+    }
     public function fetchStudents()
     {
         $this->students = [];
@@ -169,6 +197,56 @@ class DatabaseManager
             $handle->execute();
         }
     }
+
+
+    public function loadStudent(int $id):Student{
+
+        $q = $this->getDbcontroller()->prepare('select * from student where student_id = :id');
+        $q->bindValue(':id', $id);
+        $q->execute();
+        $row = $q->fetch();
+        return new Student($row['student_id'], $row['name'], $row['email'],$row['class_id']);
+
+
+    }
+    public function editStudent(int $id, string $name, string $email, int $classId){
+        $q = $this->getDbcontroller()->prepare('UPDATE student SET name = :name, email = :email, class_id=:class_id WHERE student_id = :id');
+        $q->bindValue('id', $id);
+        $q->bindValue('name', $name);
+        $q->bindValue('email', $email);
+        $q->bindValue('class_id', $classId);
+        $q->execute();
+    }
+
+    public function createStudentTeacherList(int $teacher_id):string{
+       $list="";
+
+        $q = $this->getDbcontroller()->prepare(' SELECT student.student_id, student.name from student LEFT JOIN class ON student.class_id =class.class_id 
+left join teacher ON class.teacher_id =teacher.teacher_id where teacher.teacher_id =:id ;');
+        $q->bindValue(':id', $teacher_id);
+        $q->execute();
+        $rows=$q->fetchAll();
+        foreach ($rows as $key=>$row){
+            $key+=1;
+          $list.="<button class='mb-1  btn-secondary'  value='{$row['student_id']}'>$key: {$row['name']}</button><br>";
+       }
+        return "<ol>".$list."</ol>";
+
+    }
+    public function createStudentClassList(int $class_id):string{
+        $list="";
+        $q = $this->getDbcontroller()->prepare(' SELECT student.student_id, student.name from student LEFT JOIN class ON student.class_id =class.class_id where class.class_id =:id ;');
+        $q->bindValue(':id', $class_id);
+        $q->execute();
+        $rows=$q->fetchAll();
+        foreach ($rows as $key=>$row){
+            $key+=1;
+            $list.="<button class='mb-1  btn-secondary'  value='{$row['student_id']}'>$key: {$row['name']}</button><br>";
+        }
+        return "<ol>".$list."</ol>";
+
+    }
+
 
 
 }

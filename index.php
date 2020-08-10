@@ -5,38 +5,29 @@ ini_set('display_startup_errors', "1");
 error_reporting(E_ALL);
 
 require 'resources/secret.php';
+require 'Controller/ControllerInterface.php';
 require 'Controller/ControllerCreate.php';
+require 'Controller/OverviewController.php';
+require 'Controller/DetailedOverviewController.php';
 require 'Model/DatabaseManager.php';
 
 require 'Model/Teacher.php';
 require 'Model/ClassBecode.php';
 require 'Model/Student.php';
 
-// $createController=(new ControllerCreate())->render();
+//
 
-$manager = new DatabaseManager();
-$teachers = $manager->getTeachers();
-$classes = $manager->getClasses();
-$students = $manager->getStudents();
 
-if (isset($_POST['deleteTeacher'])) {
+if (isset($_POST['create']) || isset($_POST['createStudent']) || isset($_POST['createTeacher']) || isset($_POST['createClass'])) {
+    $controller=new ControllerCreate();
     /*
     $handle=$manager->getDbcontroller()->prepare('DELETE FROM teacher WHERE teacher_id = :id');
     $handle->bindValue(':id', (int) htmlspecialchars($_POST['deleteTeacher']));
     $handle->execute();
     */
+}elseif (isset($_POST['detailedOverviewTeacher']) || isset($_POST['detailedOverviewClass'])|| isset($_POST['detailedOverviewStudent'])){
+    $controller= new DetailedOverviewController();
+}else{
+    $controller= new OverviewController();
 }
-
-if (isset($_POST['editTeacher'])) {
-    try {
-        $teacherEdit = $manager->loadTeacher((int)htmlspecialchars($_POST['teacherId']));
-        var_dump($teacherEdit);
-    } catch (TeacherException $e) {
-        $e = "Teacher not found";
-    }
-
-
-}
-$teachers = $manager->getTeachers();
-var_dump($teachers);
-require 'View/overview.php';
+$controller->render();
