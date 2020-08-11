@@ -4,15 +4,18 @@ class DetailController implements ControllerInterface {
         $manager=new DatabaseManager();
 
         if($_GET['details']==='teacher') {
-            $teacher = $manager->findTeacherById((int)$_GET['id']);
+            $teacher = (new TeacherLoader())->findById((int)$_GET['id']);
         }
         if($_GET['details']==='class') {
-            $class = $manager->findClassById((int)$_GET['id']);
+            $class = (new ClassBecodeLoader())->findById((int)$_GET['id']);
         }
         if($_GET['details']==='student') {
-            $student = $manager->findStudentById((int)$_GET['id']);
+            $student = (new StudentLoader())->findById((int)$_GET['id']);
         }
 
+        if(isset($_POST['deleteStudent'])|| isset($_POST['deleteTeacher'])||isset($_POST['deleteClass'])) {
+            (new OverviewController())->render();
+        }
 
         require 'View/detailedView.php';
 

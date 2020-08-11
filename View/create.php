@@ -7,9 +7,9 @@
 </div>";
     }?>
     <a href="/php-crud/"class="btn btn-success">Back to Overview</a>
-    <?php if(!empty($message)){
+    <?php if(!empty($manager->getMessage())){
          echo  "<div class='my-2 alert alert-success' role='alert'>
-  <strong>Yes! </strong>{$message}
+  <strong>Yes! </strong>{$manager->getMessage()}
 </div>";
     }?>
     <div class="row">

@@ -5,27 +5,35 @@ class ControllerCreate implements ControllerInterface {
         $teachers = $manager->getTeachers();
         $classes = $manager->getClasses();
         $students = $manager->getStudents();
-        $message="";
+
         if(isset($_POST['createTeacher'])){
-            $manager->createTeacher(htmlspecialchars($_POST['teacherName']),htmlspecialchars($_POST['teacherEmail']));
-            if(empty($manager->getError())){
-                $message="The entity is created";
+            try {
+                (new TeacherLoader())->create(htmlspecialchars($_POST['teacherName']), htmlspecialchars($_POST['teacherEmail']));
+                $manager->setMessage('succesfully created');
+            } catch (TeacherCreateException $e) {
+                $manager->setError($e->getMessage());
             }
         }
 
         if(isset($_POST['createClass'])){
-            $manager->createClass(htmlspecialchars($_POST['className']),htmlspecialchars($_POST['campus']),(int)htmlspecialchars($_POST['teacher']));
-            if(empty($manager->getError())){
-                $message="The entity is created";
+            try {
+                (new ClassBecodeLoader())->create(htmlspecialchars($_POST['className']),htmlspecialchars($_POST['campus']),(int)htmlspecialchars($_POST['teacher']));
+                $manager->setMessage('succesfully created');
+            } catch (ClassCreateException $e) {
+                $manager->setError($e->getMessage());
             }
         }
 
         if(isset($_POST['createStudent'])){
-            $manager->createStudent(htmlspecialchars($_POST['studentName']),htmlspecialchars($_POST['email']),(int)htmlspecialchars($_POST['class']));
-            if(empty($manager->getError())){
-                $message="The entity is created";
+            try {
+                (new StudentLoader())->create(htmlspecialchars($_POST['studentName']),htmlspecialchars($_POST['email']),(int)htmlspecialchars($_POST['class']));
+                $manager->setMessage('succesfully created');
+            } catch (StudentCreateException $e) {
+                $manager->setError($e->getMessage());
             }
         }
+
+
 
 
 

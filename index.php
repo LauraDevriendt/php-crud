@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 require 'resources/secret.php';
 require 'Controller/ControllerInterface.php';
 require 'Controller/ControllerCreate.php';
+require 'Controller/ControllerEdit.php';
 require 'Controller/OverviewController.php';
 require 'Controller/DetailController.php';
 
@@ -24,8 +25,10 @@ require 'Model/Student.php';
 if (isset($_GET['create'])) {
     $controller=new ControllerCreate();
 
-}  elseif(isset($_GET['details']) &&!isset($_POST['deleteTeacher']) &&!isset($_POST['deleteStudent'])&&!isset($_POST['deleteClass'])) {
+}  elseif(isset($_GET['details'])) {
     $controller = new DetailController();
+} elseif (isset($_GET['edit'])){
+    $controller=new ControllerEdit();
 }
 else {
     $controller = new OverviewController();
