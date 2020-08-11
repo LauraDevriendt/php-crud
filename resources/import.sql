@@ -30,7 +30,7 @@ CREATE TABLE `class` (
   PRIMARY KEY (`class_id`),
   KEY `class_FK` (`teacher_id`),
   CONSTRAINT `class_FK` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `class` (
 
 LOCK TABLES `class` WRITE;
 /*!40000 ALTER TABLE `class` DISABLE KEYS */;
-INSERT INTO `class` VALUES (1,'Lamarr','Antwerp',1),(2,'Giertz','Antwerp',3),(3,'Grace','Gent',2);
+INSERT INTO `class` VALUES (3,'Lamar','Antwerp',15),(5,'Giertz','Antwerp',12);
 /*!40000 ALTER TABLE `class` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,8 +56,9 @@ CREATE TABLE `student` (
   `email` varchar(2083) NOT NULL,
   `class_id` int(11) NOT NULL,
   PRIMARY KEY (`student_id`),
-  KEY `student_FK` (`class_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `student_FK` (`class_id`),
+  CONSTRAINT `student_FK` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +67,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` VALUES (8,'Christel Gaumier','laura_devriendt5@hotmail.com',5),(9,'Laura Devriendt','laura.devriendt@student.kuleuven.be',5);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,11 +82,8 @@ CREATE TABLE `teacher` (
   `teacher_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `email` varchar(2083) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  PRIMARY KEY (`teacher_id`),
-  KEY `teacher_FK` (`class_id`),
-  CONSTRAINT `teacher_FK` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`teacher_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +92,7 @@ CREATE TABLE `teacher` (
 
 LOCK TABLES `teacher` WRITE;
 /*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
-INSERT INTO `teacher` VALUES (1,'Koen','Koen@becode.org',1),(2,'Tim','Tim@becode.org',2),(3,'Sicco','Sicco@becode.org',3);
+INSERT INTO `teacher` VALUES (12,'Jens','Jens@becode.org'),(15,'Koen','Koen@becode.org'),(18,'Sicco','sicco@BeCode.org');
 /*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -106,4 +105,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-07 13:58:11
+-- Dump completed on 2020-08-11 19:11:09

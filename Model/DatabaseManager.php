@@ -7,15 +7,15 @@ class DatabaseManager
 {
     protected PDO $dbcontroller;
     /**
-     * @var Teacher[];
+     * @var Teacher[]
      */
     protected $teachers = [];
     /**
-     * @var ClassBecode[];
+     * @var ClassBecode[]
      */
     protected $classes = [];
     /**
-     * @var Student[];
+     * @var Student[]
      */
     protected $students = [];
     protected string $error = "";

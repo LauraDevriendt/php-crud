@@ -8,6 +8,7 @@ class DetailController implements ControllerInterface {
         }
         if($_GET['details']==='class') {
             $class = (new ClassBecodeLoader())->findById((int)$_GET['id']);
+
         }
         if($_GET['details']==='student') {
             $student = (new StudentLoader())->findById((int)$_GET['id']);

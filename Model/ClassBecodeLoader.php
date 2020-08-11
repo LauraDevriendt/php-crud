@@ -61,7 +61,7 @@ class classBecodeLoader extends DatabaseManager
         $q->execute();
     }
 
-    public function delete(ClassBecode $class)
+    public function delete(?ClassBecode $class)
     {
         foreach ($this->students as $student) {
             if ($student->getClass()->getId() === $class->getId()) {
@@ -76,7 +76,7 @@ class classBecodeLoader extends DatabaseManager
 
     }
 
-    public function findById(int $id): ?ClassBecode
+    public function findById(int $id): ClassBecode
     {
         foreach ($this->classes as $class) {
             if ($class->getId() == $id) {

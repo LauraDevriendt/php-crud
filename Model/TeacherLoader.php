@@ -47,25 +47,28 @@ class TeacherLoader extends DatabaseManager
         $q->bindValue('email', $email);
         $q->execute();
     }
-    public function delete(Teacher $teacher)
+    public function delete(?Teacher $teacher)
     {
         foreach ($this->classes as $class) {
             if ($class->getTeacher()->getId() === $teacher->getId()) {
                 throw new TeacherDeleteException("This teacher is still assigned to the class <strong>{$class->getName()}</strong>. Assign to other class first");
             }
         }
+
         $handle = $this->getDbcontroller()->prepare('DELETE FROM teacher WHERE teacher_id = :id');
         $handle->bindValue(':id', ($teacher->getId()));
         $handle->execute();
 
     }
-    public function findById(int $id): ?Teacher
+    public function findById(int $id): Teacher
     {
         foreach ($this->teachers as $teacher) {
             if ($teacher->getId() == $id) {
                 return $teacher;
             }
         }
+
+
     }
     public function createStudentTeacherList(int $teacher_id): string
     {

@@ -49,7 +49,7 @@ class StudentLoader extends DatabaseManager
         $q->bindValue('class_id', $classId);
         $q->execute();
     }
-    public function delete(Student $student)
+    public function delete(?Student $student)
     {
 
         $handle = $this->getDbcontroller()->prepare('DELETE FROM student WHERE student_id = :id');
@@ -58,7 +58,7 @@ class StudentLoader extends DatabaseManager
 
 
     }
-    public function findById(int $id): ?Student
+    public function findById(int $id): Student
     {
         foreach ($this->students as $student) {
             if ($student->getId() === $id) {
