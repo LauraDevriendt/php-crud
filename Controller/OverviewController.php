@@ -9,6 +9,8 @@ public function render(){
     $classes = $manager->getClasses();
     $students = $manager->getStudents();
 
+
+
     if (isset($_POST['editTeacher'])) {
         try {
             $teacherEdit = $manager->loadTeacher((int)htmlspecialchars($_POST['teacherId']));

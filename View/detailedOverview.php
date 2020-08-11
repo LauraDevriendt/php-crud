@@ -63,8 +63,7 @@
             <th scope='row'>$key</th>
             <td>{$class->getName()}</td>
             <td>{$class->getCampus()}</td>
-           <!-- //@todo stopped here !!!-->
-            <td>{$class->getCampus()}</td>
+            <td><button name='teacherClass' class='btn btn-secondary' type='submit' value='{$class->getTeacher()->getId()}'>{$class->getTeacher()->getName()}</button></td>
             <td>
            {$manager->createStudentClassList($class->getId())}
             </td>
@@ -77,14 +76,16 @@
     <?php if((isset($_POST['detailedOverviewStudent']))):?>
         <h2>Students</h2>
         <form method='post' action=''>
-            <button  class='mb-1 btn btn-danger' type='submit' name='deleteClasses'>Delete all classes</button>
+            <button  class='mb-1 btn btn-danger' type='submit' name='deleteStudents'>Delete all students</button>
         </form>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Modification</th>
+                <th>Email</th>
+                <th>Class</th>
+                <th>Teacher</th>
             </tr>
             </thead>
             <tbody>
@@ -98,13 +99,10 @@
         <tr>
             <th scope='row'>$order</th>
             <td>{$student->getName()}</td>
-            <td><form method='post'>
-            <input type='hidden' name='studentId' value='{$student->getId()}'>
-            <button  class='btn btn-danger' type='submit' name='deleteStudent' >Delete</button>
-            <button class='btn btn-info' type='submit' name='editStudent' >Edit</button>   
-            
-            
-</form></td>
+            <td>{$student->getEmail()}</td>
+            <td><button name='studentClass'type='submit' class='btn btn-secondary' value='{$student->getClass()->getId()}'> {$student->getClass()->getName()}</button></td>
+            <td><button name='studentTeacher' type='submit' class='btn btn-secondary' value='{$student->getClass()->getTeacher()->getId()}'>{$student->getClass()->getTeacher()->getName()}</button> </td>
+           
         </tr>";
             }
             ?>

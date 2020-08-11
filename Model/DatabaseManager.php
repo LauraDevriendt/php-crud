@@ -142,11 +142,13 @@ class DatabaseManager
     public function fetchClasses()
     {
         $this->classes = [];
-        $handle = $this->getDbcontroller()->prepare('SELECT * FROM class');
+        $handle = $this->getDbcontroller()->prepare('SELECT class_id, class.name as className, campus, class.teacher_id, teacher.name as teacherName,email FROM class JOIN teacher ON class.teacher_id=teacher.teacher_id');
         $handle->execute();
         $classes = $handle->fetchAll();
         foreach ($classes as $class) {
-            $this->classes[] = new ClassBecode((int)$class['class_id'], $class['name'], $class['campus'], $class['teacher_id']);
+                $this->classes[] = new ClassBecode((int)$class['class_id'], $class['className'], $class['campus'],
+                    new Teacher ((int) $class['teacher_id'], $class['teacherName'], $class['email']));
+
         }
     }
 
@@ -171,11 +173,13 @@ class DatabaseManager
     public function fetchStudents()
     {
         $this->students = [];
-        $handle = $this->getDbcontroller()->prepare('SELECT * FROM student');
+        $handle = $this->getDbcontroller()->prepare('SELECT student_id, student.name as studentName, student.email as studentEmail, class.class_id, class.name as className, campus, class.teacher_id, teacher.name as teacherName,teacher.email FROM student JOIN class ON student.class_id=class.class_id JOIN teacher ON teacher.teacher_id=class.teacher_id');
         $handle->execute();
         $students = $handle->fetchAll();
         foreach ($students as $student) {
-            $this->students[] = new Student((int)$student['student_id'], $student['name'], $student['email'], $student['class_id']);
+            $this->students[] = new Student((int)$student['student_id'], $student['studentName'], $student['studentEmail'],
+                new ClassBecode((int)$student['class_id'], $student['className'], $student['campus'],
+                    new Teacher ((int) $student['teacher_id'], $student['teacherName'], $student['email'])));
         }
     }
 

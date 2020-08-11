@@ -6,15 +6,15 @@ class ClassBecode
 private int $id;
 private string $name;
 private string $campus;
-private int $teacherId;
+private Teacher $teacher;
 
 
-    public function __construct(int $id, string $name, string $campus, int $teacherId)
+    public function __construct(int $id, string $name, string $campus, Teacher $teacher)
     {
         $this->id = $id;
         $this->name = $name;
         $this->campus = $campus;
-        $this->teacherId = $teacherId;
+        $this->teacher= $teacher;
     }
 
     /**
@@ -44,8 +44,8 @@ private int $teacherId;
     /**
      * @return int
      */
-    public function getTeacherId(): int
+    public function getTeacher(): Teacher
     {
-        return $this->teacherId;
+        return $this->teacher;
     }
 }

@@ -6,14 +6,14 @@ class Student
 private int $id;
 private string $name;
 private string $email;
-private int $classId;
+private ClassBecode $class;
 
-    public function __construct(int $id, string $name, string $email, int $classId)
+    public function __construct(int $id, string $name, string $email, ClassBecode $class)
     {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
-        $this->classId = $classId;
+        $this->class = $class;
     }
 
     public function getId(): int
@@ -33,8 +33,8 @@ private int $classId;
     }
 
 
-    public function getClassId(): int
+    public function getClass(): ClassBecode
     {
-        return $this->classId;
+        return $this->class;
     }
 }
