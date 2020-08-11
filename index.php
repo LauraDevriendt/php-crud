@@ -8,9 +8,12 @@ require 'resources/secret.php';
 require 'Controller/ControllerInterface.php';
 require 'Controller/ControllerCreate.php';
 require 'Controller/OverviewController.php';
-require 'Controller/DetailedOverviewController.php';
-require 'Model/DatabaseManager.php';
+require 'Controller/DetailController.php';
 
+require 'Model/DatabaseManager.php';
+require 'Model/TeacherLoader.php';
+require 'Model/ClassBecodeLoader.php';
+require 'Model/StudentLoader.php';
 require 'Model/Teacher.php';
 require 'Model/ClassBecode.php';
 require 'Model/Student.php';
@@ -18,16 +21,15 @@ require 'Model/Student.php';
 //
 
 
-if (isset($_POST['createStudent']) || isset($_POST['createTeacher']) || isset($_POST['createClass']) ||isset($_POST['creationStudent']) || isset($_POST['creationTeacher']) || isset($_POST['creationClass'])) {
+if (isset($_GET['create'])) {
     $controller=new ControllerCreate();
-    /*
-    $handle=$manager->getDbcontroller()->prepare('DELETE FROM teacher WHERE teacher_id = :id');
-    $handle->bindValue(':id', (int) htmlspecialchars($_POST['deleteTeacher']));
-    $handle->execute();
-    */
-}elseif (isset($_POST['detailedOverviewTeacher']) || isset($_POST['detailedOverviewClass'])|| isset($_POST['detailedOverviewStudent'])){
-    $controller= new DetailedOverviewController();
-}else{
-    $controller= new OverviewController();
+
+}  elseif(isset($_GET['details']) &&!isset($_POST['deleteTeacher']) &&!isset($_POST['deleteStudent'])&&!isset($_POST['deleteClass'])) {
+    $controller = new DetailController();
+}
+else {
+    $controller = new OverviewController();
 }
 $controller->render();
+
+

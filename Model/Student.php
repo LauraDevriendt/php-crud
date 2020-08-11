@@ -8,7 +8,7 @@ private string $name;
 private string $email;
 private ClassBecode $class;
 
-    public function __construct(int $id, string $name, string $email, ClassBecode $class)
+    public function __construct(int $id, string $name, string $email, ?ClassBecode $class)
     {
         $this->id = $id;
         $this->name = $name;

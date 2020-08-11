@@ -1,12 +1,19 @@
 <?php require 'includes/header.php'?>
 <section class="container">
-    <?php if(!empty($manager->getError())) {
-   echo  "{$manager->getError()}";
-    }?>
-
     <h1>Creation Becode</h1>
+    <?php if(!empty($manager->getError())) {
+        echo  "<div class='my-2 alert alert-danger' role='alert'>
+  <strong>Oh snap!</strong>{$manager->getError()}
+</div>";
+    }?>
+    <a href="/php-crud/"class="btn btn-success">Back to Overview</a>
+    <?php if(!empty($message)){
+         echo  "<div class='my-2 alert alert-success' role='alert'>
+  <strong>Yes! </strong>{$message}
+</div>";
+    }?>
     <div class="row">
-        <?php if(isset($_POST['creationTeacher']) ):?>
+        <?php if($_GET['create']==='teacher' ):?>
         <section class="col-12 container my-2">
             <h5>Create a Teacher</h5>
             <form method="post">
@@ -18,13 +25,12 @@
                     <label for="teacherEmail">Email: </label>
                     <input name="teacherEmail" type="teacherEmail" class="form-control" id="teacherEmail" placeholder="Type here ..." required>
                 </div>
-                <button name="createTeacher" type="submit">Submit</button>
+              <button name="createTeacher" type="submit">Submit</button>
             </form>
         </section>
         <?php endif;?>
 
-
-        <?php if(!empty($teachers) &&isset($_POST['creationClass'])) :?>
+        <?php if(!empty($teachers) &&$_GET['create']==='class') :?>
             <section class="col-12 container my-2">
                 <h5>Create a Class</h5>
                 <form method="post">
@@ -54,7 +60,8 @@
                 </form>
             </section>
         <?php endif ?>
-        <?php if(!empty($teachers) && !empty($classes) &&(isset($_POST['creationStudent']))) :?>
+
+        <?php if(!empty($teachers) && !empty($classes) &&$_GET['create']==='student') :?>
         <section class="col-12 container my-2">
             <h5>Create a Student</h5>
             <form method="post">
@@ -81,8 +88,6 @@
             </form>
         </section>
         <?php endif ?>
-
-
     </div>
 </section>
 
