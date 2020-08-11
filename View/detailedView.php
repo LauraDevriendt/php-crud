@@ -22,7 +22,10 @@
             <td><?php echo "{$teacher->getName()}"?></td>
             <td><?php echo "{$teacher->getEmail()}"?></td>
             <td>
-            <?php echo "{$manager->createStudentTeacherList($teacher->getId())}" ?>
+            <?php
+            $loader=new TeacherLoader();
+            echo "{$loader->createStudentTeacherList($teacher->getId())}"
+            ?>
             </td>
         </tr>
             </tbody>
@@ -49,7 +52,9 @@
             <td><?php echo "{$class->getCampus()}"?></td>
             <td><a href="<?php echo "?details=teacher&id={$class->getTeacher()->getId()}"?>"><?php echo"{$class->getTeacher()->getName()}"?></a></td>
             <td>
-           <?php echo"{$manager->createStudentClassList($class->getId())}"?>
+           <?php
+           $loader=new ClassBecodeLoader();
+           echo"{$loader->createStudentClassList($class->getId())}"?>
             </td>
         </tr>
             </tbody>

@@ -115,36 +115,7 @@ class DatabaseManager
     }
 
 
-    public function createStudentTeacherList(int $teacher_id): string
-    {
-        $list = "";
 
-        $q = $this->getDbcontroller()->prepare(' SELECT student.student_id, student.name from student LEFT JOIN class ON student.class_id =class.class_id 
-left join teacher ON class.teacher_id =teacher.teacher_id where teacher.teacher_id =:id ;');
-        $q->bindValue(':id', $teacher_id);
-        $q->execute();
-        $rows = $q->fetchAll();
-        foreach ($rows as $key => $row) {
-            $key += 1;
-            $list .= "<a href='?details=student&id={$row['student_id']}' class='mb-1 '>$key: {$row['name']}</a><br>";
-        }
-        return "<ol>" . $list . "</ol>";
-
-    }
-    public function createStudentClassList(int $class_id): string
-    {
-        $list = "";
-        $q = $this->getDbcontroller()->prepare(' SELECT student.student_id, student.name from student LEFT JOIN class ON student.class_id =class.class_id where class.class_id =:id ;');
-        $q->bindValue(':id', $class_id);
-        $q->execute();
-        $rows = $q->fetchAll();
-        foreach ($rows as $key => $row) {
-            $key += 1;
-            $list .= "<a href='?details=student&id={$row['student_id']}' class='mb-1 '>$key: {$row['name']}</a><br>";
-        }
-        return "<ol>" . $list . "</ol>";
-
-    }
 
 
 
