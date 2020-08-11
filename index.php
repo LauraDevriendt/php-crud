@@ -18,7 +18,7 @@ require 'Model/Student.php';
 //
 
 
-if (isset($_POST['create']) || isset($_POST['createStudent']) || isset($_POST['createTeacher']) || isset($_POST['createClass'])) {
+if (isset($_POST['createStudent']) || isset($_POST['createTeacher']) || isset($_POST['createClass']) ||isset($_POST['creationStudent']) || isset($_POST['creationTeacher']) || isset($_POST['creationClass'])) {
     $controller=new ControllerCreate();
     /*
     $handle=$manager->getDbcontroller()->prepare('DELETE FROM teacher WHERE teacher_id = :id');

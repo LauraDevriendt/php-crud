@@ -6,7 +6,8 @@
 
     <h1>Creation Becode</h1>
     <div class="row">
-        <section class="col-3 container my-2">
+        <?php if(isset($_POST['creationTeacher']) ):?>
+        <section class="col-12 container my-2">
             <h5>Create a Teacher</h5>
             <form method="post">
                 <div class="form-group">
@@ -20,8 +21,11 @@
                 <button name="createTeacher" type="submit">Submit</button>
             </form>
         </section>
-        <?php if(!empty($teachers)) :?>
-            <section class="col-3 container my-2">
+        <?php endif;?>
+
+
+        <?php if(!empty($teachers) &&isset($_POST['creationClass'])) :?>
+            <section class="col-12 container my-2">
                 <h5>Create a Class</h5>
                 <form method="post">
                     <div class="form-group">
@@ -50,8 +54,8 @@
                 </form>
             </section>
         <?php endif ?>
-        <?php if(!empty($teachers) && !empty($classes)) :?>
-        <section class="col-3 container my-2">
+        <?php if(!empty($teachers) && !empty($classes) &&(isset($_POST['creationStudent']))) :?>
+        <section class="col-12 container my-2">
             <h5>Create a Student</h5>
             <form method="post">
                 <div class="form-group">

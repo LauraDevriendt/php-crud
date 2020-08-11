@@ -4,7 +4,7 @@
     <h1>Overview</h1>
     <h2>Teachers</h2>
     <form method='post' action=''>
-        <button  class='mb-1 btn btn-success' type='submit' name='create'>New Teacher</button>
+        <button  class='mb-1 btn btn-success' type='submit' name='creationTeacher'>New Teacher</button>
         <button  class='mb-1 btn btn-info' type='submit' name='detailedOverviewTeacher'>More Detail</button>
 
     </form>
@@ -66,7 +66,7 @@
     <?php if(empty($teacherEdit) && empty($editClass) && empty($studentEdit)):?>
     <h2>Classes</h2>
         <form method='post' action=''>
-            <button  class='mb-1 btn btn-success' type='submit' name='create'>New Class</button>
+            <button  class='mb-1 btn btn-success' type='submit' name='creationClass'>New Class</button>
             <button  class='mb-1 btn btn-info' type='submit' name='detailedOverviewClass'>More detail</button>
         </form>
     <table class="table table-striped">
@@ -134,7 +134,7 @@
     <?php if(empty($teacherEdit) && empty($editClass) && empty($studentEdit)):?>
     <h2>Students</h2>
         <form method='post' action=''>
-            <button  class='mb-1 btn btn-success' type='submit' name='create'>New Student</button>
+            <button  class='mb-1 btn btn-success' type='submit' name='creationStudent'>New Student</button>
             <button  class='mb-1 btn btn-info' type='submit' name='detailedOverviewStudent'>More Detail</button>
 
         </form>
